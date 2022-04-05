@@ -6,11 +6,7 @@ export default {
     return {
       message: "Welcome to Vue.js!",
       products: [],
-      newProductParams: [
-        {
-
-        }
-      ]
+      newProductParams: {}
     };
   },
   created: function () {
@@ -27,10 +23,10 @@ export default {
     createProduct: function () {
       console.log('creating product');
       var newProductParams = {
-        name: "Pen",
-        description: "Good for writing",
-        price: 15,
-        image_url: "https://m.media-amazon.com/images/I/711F6-eLS6L._AC_SS450_.jpg"
+        name: this.newProductParams.name,
+        description: this.newProductParams.description,
+        price: this.newProductParams.price,
+        image_url: this.newProductParams.image_url
       }
       axios.post('http://localhost:3000/products.json', newProductParams).then(response => {
         console.log(response.data)
@@ -43,8 +39,12 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <!-- <input v-model /> -->
+    <input v-model="newProductParams.name" />
+    <input v-model="newProductParams.description" />
+    <input v-model="newProductParams.price" />
+    <input v-model="newProductParams.image_url" />
     <button v-on:click="createProduct()">Add product</button>
+
     <div v-for="product in products" v-bind:key="product.id">{{ product.name }}</div>
   </div>
 </template>
