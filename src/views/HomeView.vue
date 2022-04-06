@@ -7,7 +7,8 @@ export default {
       message: "Welcome to Vue.js!",
       products: [],
       newProductParams: {},
-      currentProduct: {}
+      currentProduct: {},
+      editProductParams: {}
     };
   },
   created: function () {
@@ -28,7 +29,7 @@ export default {
         description: this.newProductParams.description,
         price: this.newProductParams.price,
         image_url: this.newProductParams.image_url
-      }
+      };
       axios.post('http://localhost:3000/products.json', newProductParams).then(response => {
         console.log(response.data);
         this.products.push(response.data);
@@ -37,8 +38,18 @@ export default {
     },
     showProduct: function (product) {
       console.log(product);
-
       console.log('showing product');
+      this.currentProduct = product;
+      this.editProductParams = product;
+      document.querySelector("#product-details").showModal();
+    },
+    updateProduct: function () {
+      console.log('updating product');
+      console.log(this.editProductParams);
+      axios.patch('http://localhost:3000/products/12.json', this.editProductParams).then(response => {
+        console.log(response.data);
+
+      });
     }
   }
 };
@@ -64,13 +75,36 @@ export default {
       <input v-model="newProductParams.image_url" />
     </p>
     <button v-on:click="createProduct()">Add product</button>
-
     <div v-for="product in products" v-bind:key="product.id">
       {{ product.name }}
       <button v-on:click="showProduct(product)">More Info</button>
+      <dialog id="product-details">
+        <form method="dialog">
+          <h1>Product info</h1>
+          <p>Name: {{ currentProduct.name }}</p>
+          <p>Description: {{ currentProduct.description }}</p>
+          <p>Price: {{ currentProduct.price }}</p>
+          <p>Image: {{ currentProduct.image_url }}</p>
+          <button>Close</button>
+        </form>
+        <p>
+          Name:
+          <input v-model="editProductParams.name" />
+        </p>
+        <p>
+          Description:
+          <input v-model="editProductParams.description" />
+        </p>
+        <p>
+          Price:
+          <input v-model="editProductParams.price" />
+        </p>
+        <p>
+          Image Url:
+          <input v-model="editProductParams.image_url" />
+        </p>
+      </dialog>
     </div>
-
-    <dialog></dialog>
   </div>
 </template>
 
