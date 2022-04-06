@@ -45,16 +45,30 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <input v-model="newProductParams.name" />
-    <input v-model="newProductParams.description" />
-    <input v-model="newProductParams.price" />
-    <input v-model="newProductParams.image_url" />
+    <p>
+      Name:
+      <input v-model="newProductParams.name" />
+    </p>
+    <p>
+      Description:
+      <input v-model="newProductParams.description" />
+    </p>
+    <p>
+      Price:
+      <input v-model="newProductParams.price" />
+    </p>
+    <p>
+      Image Url:
+      <input v-model="newProductParams.image_url" />
+    </p>
     <button v-on:click="createProduct()">Add product</button>
 
     <div v-for="product in products" v-bind:key="product.id">
       {{ product.name }}
       <button v-on:click="showProduct(product)">More Info</button>
     </div>
+
+    <dialog></dialog>
   </div>
 </template>
 
