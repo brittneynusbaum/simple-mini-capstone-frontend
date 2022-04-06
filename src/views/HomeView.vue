@@ -50,6 +50,12 @@ export default {
         console.log(response.data);
 
       });
+    },
+    destroyProduct: function (theProduct) {
+      console.log('destroying product');
+      axios.delete(`http://localhost:3000/products`).then(response => {
+        console.log(response.data);
+      });
     }
   }
 };
@@ -103,7 +109,8 @@ export default {
           Image Url:
           <input v-model="editProductParams.image_url" />
         </p>
-        <button v-on:click="updateProduct">Update Product</button>
+        <button v-on:click="updateProduct()">Update Product</button>
+        <button v-on:click="destroyProduct(currentProduct)">Delete Product</button>
       </dialog>
     </div>
   </div>
