@@ -31,7 +31,8 @@ export default {
       }
       axios.post('http://localhost:3000/products.json', newProductParams).then(response => {
         console.log(response.data);
-        this.products.push(response.data)
+        this.products.push(response.data);
+        this.newProductParams = {}
       })
     },
     showProduct: function (product) {
