@@ -46,7 +46,7 @@ export default {
     updateProduct: function () {
       console.log('updating product');
       console.log(this.editProductParams);
-      axios.patch('http://localhost:3000/products/12.json', this.editProductParams).then(response => {
+      axios.patch(`http://localhost:3000/products/${this.editProductParams.id}.json`, this.editProductParams).then(response => {
         console.log(response.data);
 
       });
@@ -103,6 +103,7 @@ export default {
           Image Url:
           <input v-model="editProductParams.image_url" />
         </p>
+        <button v-on:click="updateProduct">Update Product</button>
       </dialog>
     </div>
   </div>
