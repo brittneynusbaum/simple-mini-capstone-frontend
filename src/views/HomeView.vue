@@ -30,7 +30,8 @@ export default {
         image_url: this.newProductParams.image_url
       }
       axios.post('http://localhost:3000/products.json', newProductParams).then(response => {
-        console.log(response.data)
+        console.log(response.data);
+        this.products.push(response.data)
       })
     },
     showProduct: function (product) {
